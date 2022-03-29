@@ -1,0 +1,30 @@
+---
+- name: web-server installation
+  hosts: nodes
+  tasks:
+  - name: install httpd package
+    yum:
+      name:
+      - httpd
+      - firewalld
+  - name: create welcome page
+    copy:
+      content: "Welcome to my web-server\n"
+      dest: /var/www/html/index.html
+  - name: enable httpd service
+    service: 
+      name: httpd
+      state: started
+      enabled: true
+  - name: enable firewalld service
+    service:
+      name: firewalld
+      state: started
+      enabled: true
+  - name: open port in firewall
+    firewalld:
+      service: http
+      permanent: true
+      state: enabled
+      immediate: yes
+

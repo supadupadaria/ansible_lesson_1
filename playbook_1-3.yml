@@ -1,0 +1,11 @@
+---
+- name: update GRUB
+  hosts: nodes
+  tasks:
+  - name: change /etc/default/grub template
+    lineinfile:
+      path: /etc/default/grub
+      regexp: "^GRUB_CMDLINE_LINUX="
+      line: GRUB_CMDLINE_LINUX="no_timer_check console=tty0 console=ttyS0,115200n8 elevator=noop net.ifnames=0 biosdevname=0"
+  - name: apply changes
+    command: grub2-mkconfig -o /boot/grub2/grub.cfg
