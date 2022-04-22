@@ -1,6 +1,6 @@
 ---
 - name: web-server installation
-  hosts: nodes
+  hosts: all
   tasks:
   - name: install httpd package
     yum:
